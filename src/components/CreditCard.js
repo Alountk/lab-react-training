@@ -3,26 +3,16 @@ import React from 'react'
 
 
 function CreditCard(props) {
-    // console.log(props);
-    // let bgColor = props.bgColor;
-    // let rgbColor = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(bgColor);
-    // let red=parseInt(rgbColor[1], 16);
-    // let green=parseInt(rgbColor[2], 16);
-    // let blue=parseInt(rgbColor[3], 16);
+    console.log(props);
+    let color=props.color;
     let str1=props.number.substr(props.number.length-4);
-    let str2=props.number.slice(0,-4);
-    let numberCard;
-    function numberToHash (str2){
-        for(let i=0;i<str2.length;i++){
-            numberCard+='·';
-        }
-    }
-    numberToHash(str2);
-    let str3=numberCard.concat(str1)
-    console.log(str3);
-    
-    
+    let numberCard=`···· ···· ···· ${str1}`;    
     let image='';
+    let year=props.expirationYear.toString()
+    let yTwo=year.substr(year.length-2);
+    // let year=props.expirationYear.substr(props.expirationYear.length-2);
+    console.log(yTwo);
+
     if(props.type==='Visa'){
         image='../img/visa.png'
     }else if(props.type==='Master Card'){
@@ -38,6 +28,7 @@ function CreditCard(props) {
             'border-radius':'10px',
             'height':'175px',
             'width':'300px',
+            color:`${color}`
         },
         type:{
             'text-align':'right',
@@ -53,19 +44,23 @@ function CreditCard(props) {
             'text-align': 'center',
             margin: '20px 0',
         },
+        mleft:{
+            'margin-left':'25px',
+        }
     };
     return (
         <div style={styles.div}>
             <div style={styles.type}>
                 <img style={styles.img} src={image} alt=""/>
             </div>
-            <div>
-
+            <div style={styles.number}>
+                {numberCard}
             </div>
             <div>
-
+                <span>Expires {props.expirationMonth} / {yTwo}</span><span style={styles.mleft}>{props.bank}</span>
             </div>
             <div>
+            {props.owner}
 
             </div>
         </div>
